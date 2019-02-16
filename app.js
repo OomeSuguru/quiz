@@ -7,6 +7,23 @@ var helmet = require('helmet');
 var session = require('express-session');
 var passport = require('passport');
 
+// モデルの読み込み
+var User = require('./models/user');
+var Quiz = require('./models/quiz');
+var Question = require('./models/question');
+var Choice = require('./models/choice');
+
+User.sync().then(() => {
+  Quiz.belongsTo(User, { foreignKey: 'createdBy' });
+  Quiz.sync().then(() => {
+    Question.belongsTo(Quiz, { foreignKey: 'quizId' });
+    Question.sync().then(() => {
+        Choice.belongsTo(Question, { foreignKey: 'questionId' })
+        Choice.sync();
+      });
+  });
+});
+
 var GitHubStrategy = require('passport-github2').Strategy;
 var GITHUB_CLIENT_ID = "368842f3ce66daedf55a";
 var GITHUB_CLIENT_SECRET = "762fa5deaf1cf67021f85cb64210734df786a456";
@@ -27,8 +44,12 @@ passport.use(new GitHubStrategy({
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-
-      return done(null, profile);
+      User.upsert({
+        userId: profile.id,
+        username: profile.username
+      }).then(() => {
+        done(null, profile);
+      });
     });
   }
 ));
@@ -37,6 +58,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
+var quizsRouter = require('./routes/quizs');
 
 var app = express();
 app.use(helmet());
@@ -59,6 +81,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/quiz', quizsRouter);
+
 
 
 app.get('/auth/github',

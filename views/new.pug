@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  form(method="post", action="/quiz")
+    duv
+      h1 クイズのタイトルを設定
+      p クイズの内容について簡潔にまとめたタイトルを設定してください
+    div
+      h3 タイトル
+      input(type="text" name="quizName")
+    div
+      h3 クイズのひとこと説明
+      input(type="text" name="description")
+    div
+      h3 クイズを作成
+      br
+    div
+      h2 1問目
+      textarea(name="question")
+    div
+      h2 正解と選択肢を設定
+      textarea(name="")
+    div
+      h2 答え合わせで表示する解説文
+      textarea(name="answer")
+    button(type="submit") クイズを作成する
