@@ -1,0 +1,24 @@
+/  TOPページ
+quiz/new 作成ページ
+quiz/:quizid　クイズページ
+/login　ログインページ
+/logout　ログアウト
+/users ユーザー一覧ページ
+
+quiz　作成ページ
+quiz/quizid/delete=1  予定削除
+answer/:answerid/comment
+
+router
+
+router/login.js
+router/logout.js
+router/quizs.js
+router/answers.js
+
+models
+
+models/user.js
+models/quiz.js
+models/content.js
+models/answer.js
