@@ -22,3 +22,22 @@ models/user.js
 models/quiz.js
 models/content.js
 models/answer.js
+
+user
+userid
+username
+
+quizs
+quiz id UUID
+titleName
+createBy
+
+contents
+quizid
+contentId
+contents
+
+answers
+contentid
+ansewrid
+answerpost
