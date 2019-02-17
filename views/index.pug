@@ -1,10 +1,25 @@
 extends layout
 
 block content
+  h1= title
+  p Welcome to #{title}
   div
-    if !user
-      h1= title
-      p Welcome to #{title}
+    if user
+      div
+        a(href="/logout") #{user.username} をログアウト
+      div
+        a(href="/quiz/new") クイズの作成
+      - var hasQuiz = quizs.length > 0
+      if hasQuiz
+        h3 クイズ一覧
+        table.table
+          tr
+            th 写真を取得
+            th クイズタイトル
+          each quiz in quizs
+            tr
+              td
+                a(href=`/quizs/${quiz.quizId}`) #{quiz.quizName}
+              td #{quiz.updatedAt}
+    else
       a(href="/login") ログイン
-    else if user
-      a(href="/logout") #{user.username} をログアウト

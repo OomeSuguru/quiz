@@ -9,7 +9,7 @@ const Question = loader.database.define('questions', {
     autoIncrement: true,
     allowNull: false
   },
-  question: {
+  questionName: {
     type: Sequelize.STRING,
     allowNull: false
   },

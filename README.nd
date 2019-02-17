@@ -41,3 +41,32 @@ answers
 contentid
 ansewrid
 answerpost
+
+
+Quiz.findAll({
+    where: {
+      createdBy: user
+    },
+    order: [['"updatedAt"', 'DESC']]
+  }).then((quizs) => {
+    res.render('index', {
+      quizs: quizs,
+      title: title,
+      user: req.user,
+    });
+  });
+
+  //   include: [
+  //     {
+  //       model: Quiz,
+  //       attributes: ['quizId', 'quizName', 'description']
+  //     }],
+  //   order: [['"updatedAt"', 'DESC']]
+  // }).then((quizs) => {
+  //   res.render('index', {
+  //     title: title,
+  //     quizs: q
+  //   })
+  // })
+
+  同じグループにまとめる必要がある

@@ -14,8 +14,8 @@ const Choice = loader.database.define('choices', {
     allowNull: false
   },
   questionId: {
-    type: Sequelize.UUID,
-    allowNull: false
+    type: Sequelize.INTEGER,
+    // allowNull: false
   }
 }, {
     freezeTableName: true,
